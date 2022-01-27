@@ -1,0 +1,36 @@
+@page "/Courses"
+@inject HttpClient _http
+<PageTitle>Kurser</PageTitle>
+
+<h1>Kurser</h1>
+
+<div class="text-container"><p>Alla kurser jag läst under mina två år på Mittuniveristetet.</p></div>
+
+@if (courses == null)
+{
+    <p>Hämtar kurser...</p>
+}
+else
+{
+    <ul>
+    @foreach (var course in courses)
+    {
+        <li>@course.Code - @course.Name</li>
+    }
+    </ul>
+}
+
+@code {
+    private MyCourses[]? courses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courses = await _http.GetFromJsonAsync<MyCourses[]>("allCourses.json");
+    }
+
+    public class MyCourses
+    {
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+    }
+}

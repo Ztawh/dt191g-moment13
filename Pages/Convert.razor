@@ -1,0 +1,45 @@
+@page "/Convert"
+@using System.Text.RegularExpressions
+<PageTitle>Konvertera</PageTitle>
+
+<h1>Konvertera</h1>
+
+<h2>Km/h till miles/h</h2>
+
+<div>
+    <label>Mata in km/h</label>
+    <input type="number" @bind="km"/>
+    <button @onclick="ConvertToMiles">Beräkna</button>
+
+    <p>Det är @miles miles/h</p>
+</div>
+
+<h2>Meter till fot</h2>
+<div>
+    <label>Mata in meter</label>
+    <input type="number" @bind="meter"/>
+    <button @onclick="ConvertToFeet">Beräkna</button>
+
+    <p>Det är @feet fot</p>
+</div>
+
+@code {
+    private double km;
+    private double miles;
+    private double meter;
+    private double feet;
+    // private string? InputValue { get; set; }
+
+    private void ConvertToMiles()
+    {
+        miles = km / 1.609344;
+        miles = Math.Floor(miles);
+    }
+
+    private void ConvertToFeet()
+    {
+        feet = meter * 3.2808399;
+        feet = Math.Round(feet, 2);
+
+    }
+}
